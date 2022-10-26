@@ -50,10 +50,19 @@ namespace InterviewTest
             string num = Console.ReadLine();
             if (Int32.TryParse(num, out int triviaRating))
             {
-                Console.WriteLine($"\n> We agree that your trivia was {(TriviaRating)triviaRating}");
+                if (triviaRating >= 1 && triviaRating <= 5)
+                {
+                    Console.WriteLine($"\n> We agree that your trivia was {(TriviaRating)triviaRating}");
+                }
+                else
+                {
+                    // numeric value not 1 through 5
+                    Console.WriteLine("Number is not on the rating system...");
+                }
             }
             else
             {
+                // non numeric value
                 Console.WriteLine("We didn't understand that rating...");
             }
         }
@@ -62,6 +71,7 @@ namespace InterviewTest
         {
             Console.WriteLine("> Saving trivia ...");
 
+            // Creates unique question/answer set filename using date of submission
             var uniqueId = DateTime.Now.ToString("yyyyMMdd HHmmss");
             using StreamWriter file = new($"../../../QuestionSets/QuestionSet-{uniqueId}.txt");
             foreach (var triviaQuestion in questionsAndAnswers)
